@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - run: node scripts/validate-lockfile.js
       - run: npm ci
       - run: npm run check
       - run: npx playwright install --with-deps chromium

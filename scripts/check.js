@@ -1,6 +1,9 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
+import { validateLockfile } from './validate-lockfile.js';
+
+validateLockfile(JSON.parse(await readFile('package-lock.json', 'utf8')));
 
 for (const directory of ['src', 'scripts', 'tests']) {
   for (const name of await readdir(directory, { recursive: true })) {
