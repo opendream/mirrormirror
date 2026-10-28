@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Record your screen, webcam, and voice locally in your browser. No accounts or uploads.">
+<title>Mirror Mirror — Screen & Face Recorder</title>
+<link rel="stylesheet" href="/src/styles.css">
+</head>
+<body>
+<header><h1>Mirror Mirror</h1><span class="badge">Local recording</span></header>
+<p class="muted">Mirror, mirror, set the scene. Share your story on the screen.</p>
+<div class="notice">Keep this recorder visible in a separate window beside your presentation. Share the presentation window or tab to keep these controls out of the video. Use headphones when recording presentation audio.</div>
+<div id="visibilityWarning" class="notice" role="alert" hidden>The recorder was hidden. Video may have slowed or frozen during that time. Keep this window visible and check playback before saving.</div>
+<main class="workspace">
+  <section class="panel" aria-label="Recording studio">
+    <div class="preview">
+      <canvas id="canvas" width="1280" height="720" aria-label="Preview of the video that will be recorded"></canvas>
+      <div id="placeholder">Your presentation will appear here.<br><small>Start by sharing your screen, camera, and microphone.</small></div>
+      <div id="countdown" role="status" aria-live="assertive" hidden></div>
+    </div>
+    <div class="transport">
+      <button id="shareBtn" class="primary">Set up screen + face</button>
+      <button id="recBtn" class="danger" disabled>Record</button>
+      <button id="pauseBtn" disabled>Pause</button>
+      <button id="stopBtn" disabled>Stop</button>
+      <span id="timer" aria-label="Recorded duration">00:00</span>
+    </div>
+    <p id="status" role="status" aria-live="polite">Ready to set up. Camera and microphone access will be requested.</p>
+    <p class="hint"><span id="stateLabel" data-state="idle">Not capturing</span> · <span id="sourceInfo">No screen selected</span></p>
+    <section id="review" hidden aria-labelledby="reviewTitle">
+      <div class="divider"></div>
+      <h2 id="reviewTitle">Review your take</h2>
+      <video id="playback" controls playsinline preload="metadata"></video>
+      <p id="resultInfo" class="hint"></p>
+      <div class="transport"><a id="downloadBtn" class="button primary">Save recording</a><button id="retakeBtn">New take</button></div>
+      <p class="hint">Play it back with sound before saving. Starting another recording replaces this take; save it first if you want to keep it.</p>
+    </section>
+  </section>
+  <aside class="panel" aria-label="Recording settings">
+    <h2>Get ready</h2>
+    <label for="cameraSelect">Camera</label><select id="cameraSelect" disabled><option value="">Default camera</option></select>
+    <label for="micSelect">Microphone</label><select id="micSelect" disabled><option value="">Default microphone</option></select>
+    <label for="micMeter">Microphone level</label><meter id="micMeter" min="0" max="1" value="0" aria-label="Microphone input level"></meter>
+    <label class="check"><input id="micEnabled" type="checkbox" checked> Record microphone</label>
+    <label class="check"><input id="screenAudioEnabled" type="checkbox" checked disabled> Record shared audio</label>
+    <p id="audioInfo" class="hint">Shared audio availability depends on your browser and what you share.</p>
+    <label for="screenVolume">Shared audio volume</label><input id="screenVolume" type="range" min="0" max="100" value="70" disabled>
+    <div class="divider"></div>
+    <label for="position">Face position</label>
+    <select id="position"><option value="bottom-right">Bottom right</option><option value="bottom-left">Bottom left</option><option value="top-right">Top right</option><option value="top-left">Top left</option></select>
+    <label for="faceSize">Face size <output id="sizeLabel">22%</output></label><input id="faceSize" type="range" min="12" max="38" value="22">
+    <label class="check"><input id="showFace" type="checkbox" checked> Show face</label>
+    <label for="quality">Output size</label><select id="quality"><option value="1080">Up to 1080p</option><option value="720">Up to 720p · smaller file</option></select>
+    <p class="hint">Keeps the shared screen’s proportions without enlarging it. Target: 30 frames per second.</p>
+  </aside>
+</main>
+<footer>No uploads. Recording happens in this browser. Unsaved recordings are held in memory and will be lost if you close or reload the page. For long presentations, record and save in sections.</footer>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

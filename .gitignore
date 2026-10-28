@@ -1,0 +1,39 @@
+# Personal recordings and exports must never be published.
+/recordings/
+*.webm
+*.mp4
+*.mov
+*.mkv
+*.m4v
+*.wav
+*.mp3
+*.m4a
+
+# Dependencies, builds, and test output
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+.vite/
+*.tsbuildinfo
+
+# Local credentials and configuration
+.env
+.env.*
+!.env.example
+*.local
+.aws/
+.agents/
+.codex/
+
+# Logs, editor files, and operating-system metadata
+*.log
+.DS_Store
+._*
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
