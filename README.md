@@ -4,6 +4,8 @@
 
 A small browser app for recording a presentation, tutorial, or demo with your screen, webcam, and voice in one video. Built by [Opendream](https://github.com/opendream). No accounts, uploads, or recording backend.
 
+**[Open Mirror Mirror](https://opendream.github.io/mirrormirror/)** — use the hosted app directly in your desktop browser.
+
 ![Mirror Mirror recorder with screen preview and presentation controls](docs/recorder.jpg)
 
 ## What it does
@@ -93,9 +95,10 @@ src/
   styles.css               Responsive layout and styling
 scripts/                   Validation and browser-test runner
 tests/                     Unit tests and generated-media browser harness
+public/mirror-mirror.html   Compatibility redirect, copied into the build
 ```
 
-`mirror-mirror.html` is a compatibility link to the homepage for older local bookmarks.
+`/mirror-mirror.html` redirects to the homepage in local development and beneath the deployed site's URL prefix.
 
 ## Build and self-host
 
@@ -104,7 +107,17 @@ npm run build
 npm run preview
 ```
 
-The build writes static assets to `dist/`, which can be served from an HTTPS static host. The relative asset base supports deployment beneath a URL prefix. `npm run preview` is a local build preview, not a production server. This repository does not configure a hosted demo or GitHub Pages deployment.
+The build writes static assets to `dist/`, which can be served from an HTTPS static host. The relative asset base supports deployment beneath a URL prefix. `npm run preview` is a local build preview, not a production server.
+
+### GitHub Pages
+
+The hosted app is published at **https://opendream.github.io/mirrormirror/**. GitHub serves the app's static files over HTTPS; recordings are still processed and downloaded locally in your browser.
+
+The **Checks** workflow validates the lockfile, installs dependencies, runs unit and browser checks, and builds the app. Successful pushes to `main` upload only `dist/` and deploy it to the `github-pages` environment. Pull requests and other branches run checks without publishing. Main-branch runs are serialized so deployments do not overlap.
+
+For initial setup, select **Settings → Pages → Build and deployment → Source → GitHub Actions**. The workflow uses GitHub's automatic token, with Pages deployment permissions limited to the deploy job; no additional secrets are required.
+
+To redeploy, select **Actions → Checks → Run workflow → main**. To roll back a change, revert its commit on `main`; the resulting push runs checks and publishes the reverted version. Manual runs on other branches only run checks.
 
 ## Contributing
 
